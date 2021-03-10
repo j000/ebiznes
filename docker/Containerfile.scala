@@ -6,7 +6,7 @@ WORKDIR /root
 VOLUME ["/root/project"]
 
 # testing is not enabled by default
-RUN echo 'https://alpine.global.ssl.fastly.net/alpine/edge/testing/' >> /etc/apk/repositories
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing/' >> /etc/apk/repositories
 
 # install
 RUN apk add --no-cache sbt openjdk8
