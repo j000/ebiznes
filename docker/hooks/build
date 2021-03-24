@@ -1,6 +1,6 @@
 #!/bin/bash
 
-target = ""
+target=""
 case ${DOCKER_TAG} in
   *node)
     target="--target node"

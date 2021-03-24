@@ -5,7 +5,7 @@
 3 Tags:
 
 - node
-- scala
+- sbt
 - all (contains both)
 
 https://hub.docker.com/repository/docker/j000/ebiznes
