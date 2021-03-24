@@ -2,11 +2,11 @@
 
 ### Containers
 
-3 Containers:
+3 Tags:
 
-- npm
+- node
 - scala
-- npm+scala
+- all (contains both)
 
 https://hub.docker.com/repository/docker/j000/ebiznes
 

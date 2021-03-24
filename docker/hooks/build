@@ -1,0 +1,13 @@
+#!/bin/bash
+
+target = ""
+case ${DOCKER_TAG} in
+  *node)
+    target="--target node"
+    ;;
+  *sbt)
+    target="--target sbt"
+    ;;
+esac
+
+docker build -f ${DOCKERFILE_PATH} . ${target} -t ${IMAGE_NAME}

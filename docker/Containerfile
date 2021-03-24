@@ -1,0 +1,47 @@
+FROM node:lts-alpine as node
+USER node
+# default for react (node)
+EXPOSE 3000
+
+########################################
+# java + sbt
+FROM adoptopenjdk/openjdk8:alpine as sbt
+
+ARG SBT_VERSION=1.4.9
+
+RUN apk add --no-cache bash \
+  && addgroup -g 101 -S app \
+  && adduser -S -D -H -u 101 -h /home/app -s /sbin/nologin -G app -g app app \
+  && mkdir -p /home/app/project \
+  && chown -R app:app /home/app
+
+USER app
+
+VOLUME ["/home/app/project"]
+
+WORKDIR /home/app/project
+
+# default for play (scala)
+EXPOSE 9000
+
+# Install sbt
+RUN wget -q -O- https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz | tar xfvz - -C /home/app
+
+ENV PATH "$PATH:/home/app/sbt/bin"
+
+# sbt should use global cache, so let's download some shit... it will need to happen anyway
+# /!\ this takes ages... /!\
+RUN sbt scalaVersion
+
+########################################
+# add npm using cached image
+FROM sbt as all
+# install npm
+USER root
+RUN apk add --no-cache npm
+USER app
+
+# default for react (node)
+EXPOSE 3000
+
+# vim: set expandtab sw=2 ts=4 ft=dockerfile:
