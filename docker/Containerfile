@@ -27,7 +27,7 @@ RUN wget -q -O- https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$
 
 USER app
 
-WORKDIR /home/app
+WORKDIR /home/app/project
 
 # sbt should use global cache, so let's download some stuff... it will need to happen anyway
 # /!\ this takes ages... /!\
@@ -39,9 +39,11 @@ FROM sbt as all
 # install npm
 USER root
 RUN apk add --no-cache npm
-USER app
 
 # default for react (node)
 EXPOSE 3000
+
+USER app
+WORKDIR /home/app/project
 
 # vim: set expandtab sw=2 ts=4 ft=dockerfile:
