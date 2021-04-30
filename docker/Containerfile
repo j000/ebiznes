@@ -38,7 +38,7 @@ RUN sbt scalaVersion
 FROM sbt as all
 # install npm
 USER root
-RUN apk add --no-cache npm
+RUN apk add --no-cache yarn
 
 # default for react (node)
 EXPOSE 3000
