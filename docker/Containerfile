@@ -13,8 +13,6 @@ RUN apk add --no-cache bash \
   && mkdir -p /home/app/project \
   && chown -R app:app /home/app
 
-VOLUME ["/home/app"]
-
 # default for play (scala)
 EXPOSE 9000
 
