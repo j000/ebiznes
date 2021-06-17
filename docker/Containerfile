@@ -16,7 +16,7 @@ RUN apk add --no-cache bash \
 # default for play (scala)
 EXPOSE 9000
 
-ARG SBT_VERSION=1.5.1
+ARG SBT_VERSION=1.5.4
 
 ENV PATH "$PATH:/usr/local/sbt/bin"
 
