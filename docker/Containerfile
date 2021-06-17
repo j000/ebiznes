@@ -8,10 +8,10 @@ EXPOSE 3000
 FROM adoptopenjdk/openjdk8:alpine as sbt
 
 RUN apk add --no-cache bash \
-  && addgroup -g 101 -S app \
-  && adduser -S -D -H -u 101 -h /home/app -s /sbin/nologin -G app -g app app \
-  && mkdir -p /home/app/project \
-  && chown -R app:app /home/app
+  && addgroup -g 101 -S sbt \
+  && adduser -S -D -H -u 101 -h /home/sbt -s /sbin/nologin -G sbt -g sbt sbt \
+  && mkdir -p /home/sbt/app \
+  && chown -R sbt:sbt /home/sbt
 
 # default for play (scala)
 EXPOSE 9000
@@ -23,9 +23,9 @@ ENV PATH "$PATH:/usr/local/sbt/bin"
 # Install sbt
 RUN wget -q -O- https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz | tar xfvz - -C /usr/local
 
-USER app
+USER sbt
 
-WORKDIR /home/app/project
+WORKDIR /home/sbt/app
 
 # sbt should use global cache, so let's download some stuff... it will need to happen anyway
 # /!\ this takes ages... /!\
@@ -41,7 +41,7 @@ RUN apk add --no-cache yarn
 # default for react (node)
 EXPOSE 3000
 
-USER app
-WORKDIR /home/app/project
+USER sbt
+WORKDIR /home/sbt/app
 
 # vim: set expandtab sw=2 ts=4 ft=dockerfile:
